@@ -64,7 +64,7 @@ export default {
 				},
 				yutub: {
 					primary: '#0F5A9C',
-					secondary: '#E53935',
+					secondary: '#FF0000',
 					accent: '#2979FF',
 					background: '#F5F5F5',
 					card: '#FFFFFF'

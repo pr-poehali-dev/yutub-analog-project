@@ -1,22 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { 
   Home, 
-  Flame, 
-  PlaySquare, 
-  History, 
   Clock, 
+  History, 
+  PlaySquare, 
   ThumbsUp, 
-  Clapperboard, 
+  Film, 
+  Flame, 
   Music2, 
-  Radio, 
   Gamepad2, 
   Newspaper, 
   Trophy, 
-  Lightbulb, 
-  Shirt,
-  Settings,
-  HelpCircle,
-  Flag
+  Shirt, 
+  Lightbulb
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -26,77 +23,84 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
+  const menuItems = [
+    { icon: <Home size={20} />, label: "Главная", link: "/" },
+    { icon: <Flame size={20} />, label: "Тренды", link: "#" },
+    { icon: <Music2 size={20} />, label: "Музыка", link: "#" },
+    { icon: <Film size={20} />, label: "Фильмы", link: "#" },
+    { icon: <Gamepad2 size={20} />, label: "Игры", link: "#" },
+    { icon: <Newspaper size={20} />, label: "Новости", link: "#" },
+    { icon: <Trophy size={20} />, label: "Спорт", link: "#" },
+    { icon: <Lightbulb size={20} />, label: "Обучение", link: "#" },
+    { icon: <Shirt size={20} />, label: "Мода", link: "#" },
+  ];
+
+  const myLibrary = [
+    { icon: <History size={20} />, label: "История", link: "#" },
+    { icon: <PlaySquare size={20} />, label: "Мои видео", link: "#" },
+    { icon: <Clock size={20} />, label: "Смотреть позже", link: "#" },
+    { icon: <ThumbsUp size={20} />, label: "Понравившиеся", link: "#" },
+  ];
+
   return (
     <aside 
       className={`
-        fixed left-0 top-16 h-[calc(100vh-64px)] bg-white transition-all duration-300 overflow-y-auto
-        ${isOpen ? "w-64" : "w-[72px]"}
+        fixed top-16 bottom-0 left-0 w-64 bg-white border-r border-gray-200 
+        overflow-y-auto transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        z-50
       `}
     >
-      <nav className="p-1">
-        <div>
-          <SidebarItem icon={<Home />} text="Главная" isOpen={isOpen} />
-          <SidebarItem icon={<Flame />} text="В тренде" isOpen={isOpen} />
-          <SidebarItem icon={<PlaySquare />} text="Подписки" isOpen={isOpen} />
+      <div className="p-2">
+        {/* Логотип в свернутом состоянии */}
+        <div className="pl-2 mb-4 flex items-center">
+          <Link to="/" className="flex items-center py-2">
+            <img 
+              src="https://cdn.poehali.dev/files/e3ff7589-c248-44c8-ba78-5b145de7bc81.png" 
+              alt="Ютуб" 
+              className="h-6 mr-2"
+            />
+            <span className="font-medium">Мой Ютуб</span>
+          </Link>
         </div>
-
+        
+        {/* Основное меню */}
+        <div className="space-y-1">
+          {menuItems.map((item, index) => (
+            <Link to={item.link} key={index}>
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start"
+              >
+                {item.icon}
+                <span className="ml-2">{item.label}</span>
+              </Button>
+            </Link>
+          ))}
+        </div>
+        
+        {/* Разделитель */}
         <Separator className="my-2" />
-
-        <div>
-          <SidebarItem icon={<PlaySquare />} text="Библиотека" isOpen={isOpen} />
-          <SidebarItem icon={<History />} text="История" isOpen={isOpen} />
-          <SidebarItem icon={<Clock />} text="Смотреть позже" isOpen={isOpen} />
-          <SidebarItem icon={<ThumbsUp />} text="Понравившиеся" isOpen={isOpen} />
+        
+        {/* Моя медиатека */}
+        <div className="mb-2">
+          <h3 className="px-4 py-2 text-sm font-medium">Моя медиатека</h3>
+          <div className="space-y-1">
+            {myLibrary.map((item, index) => (
+              <Link to={item.link} key={index}>
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start"
+                >
+                  {item.icon}
+                  <span className="ml-2">{item.label}</span>
+                </Button>
+              </Link>
+            ))}
+          </div>
         </div>
-
-        {isOpen && (
-          <>
-            <Separator className="my-2" />
-            
-            <div className="px-3 py-2">
-              <h3 className="font-medium text-sm mb-2">Рекомендации</h3>
-              <SidebarItem icon={<Clapperboard />} text="Фильмы" isOpen={isOpen} />
-              <SidebarItem icon={<Music2 />} text="Музыка" isOpen={isOpen} />
-              <SidebarItem icon={<Radio />} text="Трансляции" isOpen={isOpen} />
-              <SidebarItem icon={<Gamepad2 />} text="Игры" isOpen={isOpen} />
-              <SidebarItem icon={<Newspaper />} text="Новости" isOpen={isOpen} />
-              <SidebarItem icon={<Trophy />} text="Спорт" isOpen={isOpen} />
-              <SidebarItem icon={<Lightbulb />} text="Обучение" isOpen={isOpen} />
-              <SidebarItem icon={<Shirt />} text="Мода" isOpen={isOpen} />
-            </div>
-
-            <Separator className="my-2" />
-
-            <div>
-              <SidebarItem icon={<Settings />} text="Настройки" isOpen={isOpen} />
-              <SidebarItem icon={<Flag />} text="Жалобы" isOpen={isOpen} />
-              <SidebarItem icon={<HelpCircle />} text="Справка" isOpen={isOpen} />
-            </div>
-          </>
-        )}
-      </nav>
+      </div>
     </aside>
-  );
-};
-
-interface SidebarItemProps {
-  icon: React.ReactNode;
-  text: string;
-  isOpen: boolean;
-}
-
-const SidebarItem: React.FC<SidebarItemProps> = ({ icon, text, isOpen }) => {
-  return (
-    <Button
-      variant="ghost"
-      className={`
-        w-full justify-start font-normal my-1
-        ${isOpen ? "px-3" : "px-2 justify-center"}
-      `}
-    >
-      <span className="mr-2">{icon}</span>
-      {isOpen && <span>{text}</span>}
-    </Button>
   );
 };
 

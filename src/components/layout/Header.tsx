@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 import { 
   Search, 
   Menu, 
@@ -23,10 +24,15 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           <Button variant="ghost" size="icon" onClick={toggleSidebar}>
             <Menu className="h-5 w-5" />
           </Button>
-          <div className="flex items-center font-bold text-xl">
-            <span className="text-yutub-secondary">Ю</span>
-            <span className="text-yutub-primary">туб</span>
-          </div>
+          <Link to="/" className="flex items-center">
+            <div className="flex items-center">
+              <img 
+                src="https://cdn.poehali.dev/files/e3ff7589-c248-44c8-ba78-5b145de7bc81.png" 
+                alt="Ютуб" 
+                className="h-8"
+              />
+            </div>
+          </Link>
         </div>
 
         {/* Центральная часть с поиском */}
