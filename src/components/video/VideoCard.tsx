@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 
@@ -10,6 +11,7 @@ interface VideoCardProps {
   thumbnailUrl: string;
   channelAvatarUrl: string;
   duration: string;
+  videoId?: number | string;
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({
@@ -19,22 +21,25 @@ const VideoCard: React.FC<VideoCardProps> = ({
   publishedAt,
   thumbnailUrl,
   channelAvatarUrl,
-  duration
+  duration,
+  videoId = 1
 }) => {
   return (
     <Card className="video-card border-0">
       {/* Миниатюра видео */}
-      <div className="relative">
-        <img 
-          src={thumbnailUrl} 
-          alt={title} 
-          className="w-full aspect-video object-cover"
-        />
-        {/* Продолжительность видео */}
-        <div className="absolute bottom-1 right-1 bg-black/80 text-white text-xs px-1 py-0.5 rounded">
-          {duration}
+      <Link to={`/video/${videoId}`}>
+        <div className="relative">
+          <img 
+            src={thumbnailUrl} 
+            alt={title} 
+            className="w-full aspect-video object-cover"
+          />
+          {/* Продолжительность видео */}
+          <div className="absolute bottom-1 right-1 bg-black/80 text-white text-xs px-1 py-0.5 rounded">
+            {duration}
+          </div>
         </div>
-      </div>
+      </Link>
       
       {/* Информация о видео */}
       <div className="p-2 flex">
@@ -43,7 +48,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
         </Avatar>
         
         <div>
-          <h3 className="font-medium text-sm line-clamp-2 mb-1">{title}</h3>
+          <Link to={`/video/${videoId}`}>
+            <h3 className="font-medium text-sm line-clamp-2 mb-1 hover:text-yutub-primary">{title}</h3>
+          </Link>
           <p className="text-xs text-gray-600">{channelName}</p>
           <p className="text-xs text-gray-600">
             {views} просмотров • {publishedAt}

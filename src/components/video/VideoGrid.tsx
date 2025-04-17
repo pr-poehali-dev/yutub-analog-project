@@ -91,6 +91,7 @@ const VideoGrid: React.FC = () => {
       {sampleVideos.map((video) => (
         <VideoCard
           key={video.id}
+          videoId={video.id}
           title={video.title}
           channelName={video.channelName}
           views={video.views}
